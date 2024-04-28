@@ -7,13 +7,13 @@ export default function App(){
   return (
       <Router>
         <Routes>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home />}/>
         </Routes>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />}/>
         </Routes>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<Main />}/>
         </Routes>
       </Router>
   );
