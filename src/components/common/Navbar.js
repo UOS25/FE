@@ -5,9 +5,11 @@ function Navbar() {
       <nav id="sidebarMenu" className="sidebar">
         <ul>
           <li><a href="/home">🏠 홈</a></li>
-          <li><a href="/">🛒 상품 판매</a></li>
+          <li><a href="/">📦 주문 관리</a></li>
           <li><a href="/">📄 영수증 조회</a></li>
           <li><a href="/">💸 수불 관리</a></li>
+          <li><a href="/">🗓 매출 조회</a></li>
+          <li><a href="/">📊 상품별 판매 통계</a></li>
         </ul>
       </nav>
       <nav id="main-navbar" className="navbar">
