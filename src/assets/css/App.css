@@ -1,0 +1,195 @@
+:root {
+  --navbarbackground-color: #ffffff;
+  --toggle-color: rgb(255, 255, 255);
+}
+
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body, ul, li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+#home_body{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+}
+/* Sidebar */
+.sidebar{
+  width: 350px;
+  height: 100%;
+  padding-top: 100px;
+
+  position: fixed;
+
+  box-shadow: inset 0px 0px 0px 0.1px;
+}
+
+.sidebar > ul ul{
+  display: none;
+}
+
+.sidebar ul > li > a {
+  display: block;
+  color: rgb(135, 128, 128);
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 50px;
+}
+
+.navbar {
+  margin: 0;
+  background-color: var(--navbarbackground-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  box-shadow: inset 0px 0px 0px 0.1px;
+
+}
+.container-left {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+.navbar-brand{
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 350px;
+  justify-content: center;
+
+}
+
+.navbar-brand > p{
+  font-size: 27px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+
+}
+
+.input-form {
+  margin-left: 40px;
+
+}
+.container-left > button {
+  background-color: var(--toggle-color);
+  padding-left: 0;
+  
+}
+
+.form-control{
+  width: 450px;
+  padding: 8px 12px;
+  font-size: 16px;
+  margin: 4px;
+  border-radius: 10px;
+  border: 2px solid gray;
+}
+
+.container-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-right: 20px;
+}
+
+/* Page:Home */
+.container-home {
+  margin-left: 350px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 상품 표 */
+.container-product-list{
+  margin-top: 95px;
+  width: 70%;
+  display: flex;
+  justify-content: center;
+}
+
+.graph-product-list {
+  
+}
+
+
+.container-calculate{
+  margin-top: 74px;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-shadow: inset 0px 0px 0px 0.1px;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.calculate-header{
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.wrapper-calculate-list{
+  margin-top: 10px;
+  justify-content: center;
+  border: 1px solid rgb(0, 0, 0);
+  background-image: ;
+  width: 100%;
+  min-height: 25%;
+
+
+}
+
+.wrapper-barcode{
+  margin-top: 8%;
+  width: 100%;
+  text-align: center;
+}
+
+.header-barcode{
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.wrapper-input{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-barcode{
+  border-radius: 5px;
+  width: 85%;
+  padding: 8px 2px;
+  font-size: 15px;
+}
+
+.input-button{
+  width: 20px;
+  height: 20px;
+  padding: 8px 2px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background: url('../../../public/image/input_button.png') no-repeat;
+}
+
+.rollback-button{
+  
+}
