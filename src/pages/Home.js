@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
 
@@ -42,6 +43,19 @@ export default function Home(selectable = false) {
         }
        ];
     const headerKey = headers.map((header) => header.value);
+
+    // 바코드로 상품 정보 불러오기
+    const getItemInfo=() => {
+        axios.get("url")
+        .then(response => {
+            console.log(response.data); // 데이터 로그 출력
+        })
+    }
+
+    // 결제 창 띄우기
+    const openCashModal=() => {
+        //모달 창 띄우기
+    }
     return (
         <div id='home_body'>
             <Navbar />
@@ -90,7 +104,10 @@ export default function Home(selectable = false) {
                     </div>
                     <div className='wrapper-barcode'>
                         <div className='header-barcode'>바코드 입력</div>
-                        <input className='input-barcode' placeholder='🛒 바코드를 입력해주세요.'></input>
+                        <div className='wrapper-input'>
+                            <input className='input-barcode' placeholder='🛒 바코드를 입력해주세요.'></input>
+                            <input type='button' className='input-button'></input>
+                        </div>
                     </div>
                     <button className='rollback-button'>입력 초기화</button>
                     <button className='pay-button'>결제</button>
