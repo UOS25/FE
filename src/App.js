@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Sales from './pages/Sales';
+
 export default function App(){
   return (
       <Router>
@@ -14,6 +16,9 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path="/" element={<Main />}/>
+        </Routes>
+        <Routes>
+          <Route path="/sales" element={<Sales />}/>
         </Routes>
       </Router>
   );
