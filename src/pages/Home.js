@@ -6,41 +6,56 @@ import '../assets/css/App.css';
 export default function Home(selectable = false) {
     const headers = [
         {
-          text: 'Name',
-          value: 'name'
+            text: '번호',
+            value: 'no'
         },
         {
-          text: 'Version',
-          value: 'version'
+            text: '상품명',
+            value: 'productName'
         },
         {
-          text: 'Launch Date',
-          value: 'launch'
+            text: '단가',
+            value: 'price'
+        },
+        {
+            text: '수량',
+            value: 'ea'
+        },
+        {
+            text: '추가 사항',
+            value: 'description'
         }
       ];
     
       const items = [
         {
-          name: 'React',
-          version: '18.2.0',
-          launch: '2013-05-29'
+            no: 1,
+            productName: '요구르트',
+            price: '1140',
+            ea: 3,
+            description: "이벤트 30% 할인"
         },
         {
-          name: 'Vue',
-          version: '3.2.45',
-          launch: '2014-02'
+            no: 2,
+            productName: '꼬북칩 초코 츄러스 맛',
+            price: '3720',
+            ea: 1,
+            description: ""
         },
         {
-          name: 'jQuery',
-          version: '3.3',
-          disabled: true,
-          launch: '2006-08-26'
+            no: 3,
+            productName: '매운 새우깡',
+            price: '1700',
+            ea: 3,
+            description: ""
         },
         {
-          name: 'Svelte',
-          version: '3.53.1',
-          launch: '2016-11-26'
-        }
+            no: 4,
+            productName: '초코 소라빵',
+            price: '1200',
+            ea: 12,
+            description: ""
+        },
        ];
     const headerKey = headers.map((header) => header.value);
 
@@ -80,7 +95,7 @@ export default function Home(selectable = false) {
                                 {/* 테이블 데이터 */}
                                 {
                                 items.map((item, index) => (
-                                    <tr key={index}>
+                                    <tr className='table-row' key={index}>
                                     {/* headerKey를 순회하면서 key를 가져옴 */}
                                     { 
                                         headerKey.map((key) => 

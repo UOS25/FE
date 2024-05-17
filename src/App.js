@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import Sales from './pages/Sales';
+import Orders from './pages/Orders';
 
 export default function App(){
   return (
@@ -19,6 +20,9 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path="/sales" element={<Sales />}/>
+        </Routes>
+        <Routes>
+          <Route path="/orders" element={<Orders />}/>
         </Routes>
       </Router>
   );

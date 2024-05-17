@@ -119,15 +119,38 @@ a {
 /* 상품 표 */
 .container-product-list{
   margin-top: 95px;
-  width: 70%;
   display: flex;
+  width: 100%;
   justify-content: center;
 }
 
 .graph-product-list {
-  
+  width: 100%;
+  margin: 50px 40px;
+  text-align: center;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #CD5C5C;
+}
+
+/* 커서 갖다대면 색깔이 바뀌며 직관적으로 표현한다 */
+.table-row:hover { background-color: #F5F5F5; }
+
+.table-tr{
+  background-color: black;
+  color: white;
+}
+
+.table-header{
+  padding: 15px 0px;
+}
 
 .container-calculate{
   margin-top: 74px;
