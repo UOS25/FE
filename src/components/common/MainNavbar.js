@@ -53,7 +53,7 @@ export default function MainNavbar() {
                                 <a href="/">채용</a>
                             </li>
                             <li>
-                                <a href="/">이벤트</a>
+                                <a href="/event">이벤트</a>
                             </li>
                         </ul>
                     </div>

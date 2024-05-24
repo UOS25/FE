@@ -5,6 +5,8 @@ import Login from './pages/Login';
 import Main from './pages/Main';
 import Sales from './pages/Sales';
 import Orders from './pages/Orders';
+import Event from './pages/Event';
+import Employee from './pages/Employee';
 
 export default function App(){
   return (
@@ -23,6 +25,12 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path="/orders" element={<Orders />}/>
+        </Routes>
+        <Routes>
+          <Route path="/events" element={<Event />}/>
+        </Routes>
+        <Routes>
+          <Route path='/employee' element={<Employee/>}/>
         </Routes>
       </Router>
   );

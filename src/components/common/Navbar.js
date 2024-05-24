@@ -1,6 +1,22 @@
+import React, { useEffect } from 'react';
+import axios from 'axios';
+
 function Navbar() {
+  // const [products, setProducts] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     axios.get("https://dummyjson.com/products")
+  //     .then((response) => response.json())
+  //     .then(({products}) => {
+  //       setProducts(products);
+  //       setLoading(false);
+  //     });
+  //   });
+  // }, []);
   function searchItem(event){
-    console.log("아이템 찾기");
+    console.log("searchItem");
   }
   return (
     <header>
@@ -11,7 +27,7 @@ function Navbar() {
           <li><a href="/">📄 영수증 조회</a></li>
           <li><a href="/">💸 수불 관리</a></li>
           <li><a href="/sales">📊 매출 통계</a></li>
-          <li><a href="/">👨 직원 관리</a></li>
+          <li><a href="/employee">👨 직원 관리</a></li>
         </ul>
       </nav>
       <nav id="main-navbar" className="navbar">
