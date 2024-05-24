@@ -119,22 +119,52 @@ a {
 /* 상품 표 */
 .container-product-list{
   margin-top: 95px;
-  width: 70%;
   display: flex;
+  width: 100%;
   justify-content: center;
 }
 
 .graph-product-list {
-  
+  width: 100%;
+  margin: 50px 40px;
+  text-align: center;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tbody {
+  text-align: center;
+}
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #CD5C5C;
+}
+
+td{
+  cursor: pointer;
+}
+
+/* 커서 갖다대면 색깔이 바뀌며 직관적으로 표현한다 */
+.table-row:hover { background-color: #F5F5F5; }
+
+.table-tr{
+  background-color: #2CD5C4;
+  color: white;
+}
+
+.table-header{
+  padding: 15px 0px;
+}
 
 .container-calculate{
   margin-top: 74px;
   padding-left: 40px;
   padding-right: 40px;
   box-shadow: inset 0px 0px 0px 0.1px;
-  width: 30%;
+  width: 35%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -149,7 +179,6 @@ a {
   margin-top: 10px;
   justify-content: center;
   border: 1px solid rgb(0, 0, 0);
-  background-image: ;
   width: 100%;
   min-height: 25%;
 
@@ -172,11 +201,13 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 0px;
+  margin-bottom: 20px;
 }
 
 .input-barcode{
   border-radius: 5px;
-  width: 85%;
+  width: 100%;
   padding: 8px 2px;
   font-size: 15px;
 }
@@ -188,8 +219,56 @@ a {
   border-radius: 5px;
   border: 1px solid black;
   background: url('../../../public/image/input_button.png') no-repeat;
+
+  cursor: pointer;
+}
+.register-button{
+  background-color: #9BCBEB;
+  border: #F5F5F5 solid;
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.rollback-button{
+  margin-top: 10px;
+  background-color: #CD5C5C;
+  border: #F5F5F5 solid;
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px 2px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.rollback-button{
-  
+.payback-button{
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 2px;
+  background-color: #9CDBD9;
+  border: #F5F5F5 solid;
+
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.pay-button {
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 2px;
+  background-color: #2CD5C4;
+  border: #F5F5F5 solid;
+  border-radius: 5px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+button:hover{
+  color: #F5F5F5;
+}
+
+button:active{
+  opacity: 0.7;
 }

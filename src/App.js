@@ -3,6 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Main from './pages/Main';
+import Sales from './pages/Sales';
+import Orders from './pages/Orders';
+import Event from './pages/Event';
+import Employee from './pages/Employee';
+
 export default function App(){
   return (
       <Router>
@@ -14,6 +19,18 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path="/" element={<Main />}/>
+        </Routes>
+        <Routes>
+          <Route path="/sales" element={<Sales />}/>
+        </Routes>
+        <Routes>
+          <Route path="/orders" element={<Orders />}/>
+        </Routes>
+        <Routes>
+          <Route path="/events" element={<Event />}/>
+        </Routes>
+        <Routes>
+          <Route path='/employee' element={<Employee/>}/>
         </Routes>
       </Router>
   );

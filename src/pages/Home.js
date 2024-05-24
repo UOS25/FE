@@ -1,47 +1,73 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
 
 export default function Home(selectable = false) {
+
+    const barCodeRef = useRef(null);
+    const [items, setItems] = useState([]);
+    const handleRegisterClick = () => {
+        const barcodeValue = barCodeRef.current.value;
+        console.log('Barcode Value:', barcodeValue);
+        axios
+          .get(`https://dummyjson.com/products/${barcodeValue}`, {
+            headers: {
+            //   Authorization: `Bearer ${accessToken}`,
+            },
+          })    
+          .then((response) => {
+            console.log(response.data);
+            // 이미 존재하는 아이템의 경우
+            // items.forEach(item => {
+            //     if (item.productName === response.data.brand){
+            //         item.ea += 1
+                    
+            //     }
+            // });
+            if (items.filter((item) => item.productName === response.data.brand).length != 0){
+                items.filter((item) => item.productName === response.data.brand)[0].ea += 1;
+            }
+            else{
+                const newItem = {
+                    no: response.data.id,
+                    productName: response.data.brand,
+                    price: response.data.price,
+                    ea: 1,
+                    describe: response.data.description
+
+                }
+            setItems((prevItems) => [...prevItems, newItem]);
+            }
+          });
+    };
+
+    const handleResetClick = () => {
+        setItems([]);
+    }
     const headers = [
         {
-          text: 'Name',
-          value: 'name'
+            text: '번호',
+            value: 'no'
         },
         {
-          text: 'Version',
-          value: 'version'
+            text: '상품명',
+            value: 'productName'
         },
         {
-          text: 'Launch Date',
-          value: 'launch'
+            text: '단가',
+            value: 'price'
+        },
+        {
+            text: '수량',
+            value: 'ea'
+        },
+        {
+            text: '추가 사항',
+            value: 'description'
         }
       ];
     
-      const items = [
-        {
-          name: 'React',
-          version: '18.2.0',
-          launch: '2013-05-29'
-        },
-        {
-          name: 'Vue',
-          version: '3.2.45',
-          launch: '2014-02'
-        },
-        {
-          name: 'jQuery',
-          version: '3.3',
-          disabled: true,
-          launch: '2006-08-26'
-        },
-        {
-          name: 'Svelte',
-          version: '3.53.1',
-          launch: '2016-11-26'
-        }
-       ];
     const headerKey = headers.map((header) => header.value);
 
     // 바코드로 상품 정보 불러오기
@@ -55,6 +81,12 @@ export default function Home(selectable = false) {
     // 결제 창 띄우기
     const openCashModal=() => {
         //모달 창 띄우기
+    }
+
+    const activeEnter=(e) => {
+        if(e.key === "Enter"){
+            console.log("엔터키 입력");
+        }
     }
     return (
         <div id='home_body'>
@@ -80,7 +112,7 @@ export default function Home(selectable = false) {
                                 {/* 테이블 데이터 */}
                                 {
                                 items.map((item, index) => (
-                                    <tr key={index}>
+                                    <tr className='table-row' key={index}>
                                     {/* headerKey를 순회하면서 key를 가져옴 */}
                                     { 
                                         headerKey.map((key) => 
@@ -105,11 +137,12 @@ export default function Home(selectable = false) {
                     <div className='wrapper-barcode'>
                         <div className='header-barcode'>바코드 입력</div>
                         <div className='wrapper-input'>
-                            <input className='input-barcode' placeholder='🛒 바코드를 입력해주세요.'></input>
-                            <input type='button' className='input-button'></input>
+                            <input className='input-barcode' placeholder='🛒 바코드를 입력해주세요.' ref={barCodeRef} />
                         </div>
                     </div>
-                    <button className='rollback-button'>입력 초기화</button>
+                    <button className='register-button' onClick={handleRegisterClick}>상품 등록</button>
+                    <button className='rollback-button' onClick={handleResetClick}>입력 초기화</button>
+                    <button className='payback-button'>구매 포기</button>
                     <button className='pay-button'>결제</button>
                 </div>
             </div>
