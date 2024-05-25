@@ -2,11 +2,13 @@ import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
+import Payback from '../components/modal/Payback';
 
-export default function Home(selectable = false) {
+export default function Home() {
 
     const barCodeRef = useRef(null);
     const [items, setItems] = useState([]);
+    const [paybackModalOpen, setPaybackModalOpen] = useState(false);
     
     // 데이터 저장 함수
     const saveItemsToLocalStorage = (items) => {
@@ -166,10 +168,13 @@ export default function Home(selectable = false) {
                     </div>
                     <button className='register-button' onClick={handleRegisterClick}>상품 등록</button>
                     <button className='rollback-button' onClick={handleResetClick}>입력 초기화</button>
-                    <button className='payback-button'>구매 포기</button>
+                    <button className='payback-button' onClick={() => setPaybackModalOpen(true)}>구매 포기</button>
                     <button className='pay-button'>결제</button>
                 </div>
             </div>
+            { paybackModalOpen && 
+                <Payback/>
+            }
         </div>
     )
 }
