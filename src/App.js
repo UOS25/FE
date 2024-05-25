@@ -8,6 +8,8 @@ import Orders from './pages/Orders';
 import Event from './pages/Event';
 import Employee from './pages/Employee';
 import Receipt from './pages/Receipt';
+import Product from './pages/Product';
+import ProductDetail from './pages/ProductDetail';
 
 export default function App(){
   return (
@@ -35,6 +37,12 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path='/receipt' element={<Receipt/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/product' element={<Product/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/product/detail' element={<ProductDetail/>}/>
         </Routes>
       </Router>
   );
