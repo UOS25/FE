@@ -30,8 +30,8 @@ export default function Orders(){
             value: 'enterprise'
         },
         {
-            text: '추가 사항',
-            value: 'description'
+            text: '주문 날짜',
+            value: 'date'
         }
       ];
     
@@ -42,46 +42,23 @@ export default function Orders(){
             price: '1140',
             ea: 3,
             enterprise: '남양',
-            description: "이벤트 30% 할인"
-        },
-        {
-            no: 2,
-            productName: '꼬북칩 초코 츄러스 맛',
-            price: '3720',
-            ea: 1,
-            enterprise: "농심",
-            description: ""
-        },
-        {
-            no: 3,
-            productName: '매운 새우깡',
-            price: '1700',
-            ea: 3,
-            enterprise: "농심",
-            description: ""
-        },
-        {
-            no: 4,
-            productName: '초코 소라빵',
-            price: '1200',
-            ea: 12,
-            enterprise: "삼립",
-            description: ""
-        },
+            date: "2024-05-25 14:13"
+        }
+
        ];
     const headerKey = headers.map((header) => header.value);
     return (
         <div id = "orders-body">
             <Navbar/>
             <div className='container-home'>
-                <div className='container-sales'>
-                    <div className='content-sales' id='sales-status'>
-                    {/* https://velog.io/@eunjin/React-%EB%A6%AC%EC%95%A1%ED%8A%B8-%EA%B7%B8%EB%9E%98%ED%94%84%EC%B0%A8%ED%8A%B8-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%AA%A8%EC%9D%8C */}
-                        <h3 className='title'>📦 주문 관리 <button type='filter-btn'>필터</button></h3>
+                <div className='container-orders'>
+                    <h2 className='order-title'>📦 주문 관리</h2>
+                    <div className='container-filter'>
+                        <input className='search' placeholder='검색어를 입력하세요.'/>
+                        <button className='filter-btn'></button>
                     </div>
-                </div>
-                <div className='container-product-list'>
-                    <div className='order-product-list'>
+                    
+                    <div className='order-table'>
                         <table>
                             <thead className='thead'>
                                 {/* 테이블 헤드 */}
@@ -95,7 +72,7 @@ export default function Orders(){
                                     }
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className='order-tbody'>
                                 {/* 테이블 데이터 */}
                                 {
                                 items.map((item, index) => (
@@ -115,6 +92,7 @@ export default function Orders(){
                         </table>
                     </div>
                 </div>
+                
             </div>
         </div>
     )

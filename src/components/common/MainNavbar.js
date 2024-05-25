@@ -38,13 +38,7 @@ export default function MainNavbar() {
                     <div className="main-navbar-wrapper">
                         <ul className="wrapper-navbar-list">
                             <li>
-                                <a href="/">매장 소개</a>
-                            </li>
-                            <li>
                                 <a href="/">상품/서비스</a>
-                            </li>
-                            <li>
-                                <a href="/">매장 안내</a>
                             </li>
                             <li>
                                 <a href="/">멤버십</a>
