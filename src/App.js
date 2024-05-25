@@ -7,6 +7,7 @@ import Sales from './pages/Sales';
 import Orders from './pages/Orders';
 import Event from './pages/Event';
 import Employee from './pages/Employee';
+import Receipt from './pages/Receipt';
 
 export default function App(){
   return (
@@ -31,6 +32,9 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path='/employee' element={<Employee/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/receipt' element={<Receipt/>}/>
         </Routes>
       </Router>
   );

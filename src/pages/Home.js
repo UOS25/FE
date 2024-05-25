@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
@@ -7,9 +7,32 @@ export default function Home(selectable = false) {
 
     const barCodeRef = useRef(null);
     const [items, setItems] = useState([]);
+    
+    // 데이터 저장 함수
+    const saveItemsToLocalStorage = (items) => {
+        localStorage.setItem('items', JSON.stringify(items));
+    };
+
+    // 데이터 로드 함수
+    const loadItemsFromLocalStorage = () => {
+        const savedItems = localStorage.getItem('items');
+        return savedItems ? JSON.parse(savedItems) : [];
+    };
+
+
+    useEffect(() => {
+        const storedItems = loadItemsFromLocalStorage();
+        setItems(storedItems);
+    }, []);
+
+    useEffect(() => {
+        saveItemsToLocalStorage(items);
+    }, [items]);
+
     const handleRegisterClick = () => {
         const barcodeValue = barCodeRef.current.value;
         console.log('Barcode Value:', barcodeValue);
+
         axios
           .get(`https://dummyjson.com/products/${barcodeValue}`, {
             headers: {
@@ -17,28 +40,29 @@ export default function Home(selectable = false) {
             },
           })    
           .then((response) => {
-            console.log(response.data);
-            // 이미 존재하는 아이템의 경우
-            // items.forEach(item => {
-            //     if (item.productName === response.data.brand){
-            //         item.ea += 1
-                    
-            //     }
-            // });
-            if (items.filter((item) => item.productName === response.data.brand).length != 0){
-                items.filter((item) => item.productName === response.data.brand)[0].ea += 1;
-            }
-            else{
-                const newItem = {
-                    no: response.data.id,
-                    productName: response.data.brand,
-                    price: response.data.price,
-                    ea: 1,
-                    describe: response.data.description
-
+            
+            setItems((prevItems) => {
+                const existingItemIndex = prevItems.findIndex((item) => item.productName === response.data.brand);
+                if (existingItemIndex !== -1) {
+                    // 기존 아이템이 있으면 수량을 증가시킴
+                    const updatedItems = prevItems.map((item, index) => 
+                        index === existingItemIndex ? { ...item, ea: item.ea + 1 } : item
+                    );
+                    return updatedItems;
+                } else {
+                    // 새로운 아이템을 추가함
+                    const newItem = {
+                        no: response.data.id,
+                        productName: response.data.brand,
+                        price: response.data.price,
+                        ea: 1,
+                        description: response.data.description
+                    };
+                    return [...prevItems, newItem];
                 }
-            setItems((prevItems) => [...prevItems, newItem]);
-            }
+            });
+            // 입력 필드 값 초기화
+            barCodeRef.current.value = '';
           });
     };
 

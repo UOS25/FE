@@ -24,7 +24,7 @@ function Navbar() {
         <ul>
           <li><a href="/home">🏠 홈</a></li>
           <li><a href="/orders">📦 주문 관리</a></li>
-          <li><a href="/">📄 영수증 조회</a></li>
+          <li><a href="/receipt">📄 영수증 조회</a></li>
           <li><a href="/">💸 수불 관리</a></li>
           <li><a href="/sales">📊 매출 통계</a></li>
           <li><a href="/employee">👨 직원 관리</a></li>
