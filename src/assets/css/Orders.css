@@ -68,3 +68,16 @@ hr {
 .order-table{
   overflow-y: auto;
 }
+
+.detail-button {
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
+.detail-button:hover {
+  background-color: #ddd;
+}

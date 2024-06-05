@@ -60,3 +60,22 @@
     border-top: 1px solid #e0e0e0;
     padding: 20px 15px;
 }
+
+
+.employee-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.employee-recruit-btn {
+    width: 50px;
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid #004094;
+    background-color: #0077C8;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+}

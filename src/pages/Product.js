@@ -3,32 +3,46 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/Orders.css';
+import OrderProduct from '../components/modal/OrderProduct';
 
 export default function Product(){
     const searchRef = useRef(null);
     const [products, setProducts] = useState([]);
     const [selectedRowData, setSelectedRowData] = useState(null);
-    const navigate = useNavigate();
+    const [OrderModalOpen, setOrderModalOpen] = useState(false);
 
     const handleRowClick = (rowData) => {
         setSelectedRowData(rowData);
+        setOrderModalOpen(true);
         console.log(rowData);
-        navigate('/product/detail', { state: { rowData } });
     };
 
     useEffect(() => {
         console.log("렌더링되자마자 실행되는 useEffect");
+        setProducts([
+            {
+                "barcode": 1,
+                "productName": "츄러스",
+                "enterprise": "오리온",
+                "description": "설명",
+                "customerPrice": 10000,
+                "orderPrice": 5000,
+                "category": "과자",
+                "feature": "feature",
+                "expirationDate": "2024-06-04T11:11:11",
+                "events": "events"
+            }
+        ]);
         // 상품 전체 정보 불러오기
-        axios.get('https://dummyjson.com/products', {
-
-        }).then((response) => {
+        axios.get('/product/list').then((response) => {
+            console.log(response);
             // 상품 정보 리스트에 담기
-            setProducts(response.data.products);
+            setProducts(response.data);
+        }).catch((error) => {
+            console.log(error);
         })
-
-
     }, []);
-
+    
     const activeEnter=(e) => {
         if(e.key === "Enter"){
             console.log("엔터키 입력");
@@ -44,9 +58,7 @@ export default function Product(){
 
         axios
         .get(`https://dummyjson.com/products/search?q=${searchValue}`, {
-                headers: {
 
-                },
             }).then((response) => {
                 console.log(response);
                 // 표에 반영하기
@@ -57,7 +69,7 @@ export default function Product(){
     const headers = [
         {
             text: '번호',
-            value: 'id'
+            value: 'barcode'
         },
         {
             text: '상품명',
@@ -69,8 +81,12 @@ export default function Product(){
         },
         {
             text: '업체',
-            value: 'brand'
-        }
+            value: 'enterprise'
+        },
+        {
+            text: '추가사항',
+            value: 'description'
+        },
       ];
     
     const headerKey = headers.map((header) => header.value);
@@ -79,7 +95,8 @@ export default function Product(){
             <Navbar/>
             <div className='container-home'>
                 <div className='container-orders'>
-                    <h2 className='order-title'>🎁 상품 조회</h2>
+                    <h2 className='order-title'>🎁 상품 주문</h2>
+                    <p>상품 주문은 원하는 상품 정보를 클릭하여 주문을 할 수 있습니다.</p>
                     <div className='container-filter'>
                         <input className='search' placeholder='검색어를 입력하세요.' ref={searchRef} onKeyDown={activeEnter}/>
                         <button className='filter-btn'></button>
@@ -107,10 +124,11 @@ export default function Product(){
                                         className='table-row' 
                                         onClick={() => handleRowClick(product)}
                                     >
-                                        <td>{product.id}</td>
+                                        <td>{product.productId}</td>
                                         <td>{product.title}</td>
                                         <td>{product.price}</td>
                                         <td>{product.brand}</td>
+                                        <td>{product.description}</td>
                                     </tr>
                                 ))
                                 }
@@ -118,7 +136,13 @@ export default function Product(){
                         </table>
                     </div>
                 </div>
-                
+                {
+                    OrderModalOpen &&
+                    <OrderProduct
+                    OrderModalOpen = {OrderModalOpen}
+                    setOrderModalOpen={setOrderModalOpen}
+                    selectedRowData = {selectedRowData} />
+                }
             </div>
         </div>
     )

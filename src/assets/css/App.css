@@ -284,3 +284,32 @@ button:active{
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
 }
+
+.modal-body{
+  width: 35%;
+  height: 80%;
+  padding: 20px;
+  position: relative;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 1);
+}
+
+.commute {
+  text-decoration: none;
+  background-color: #2CD5C4;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 20px;
+  border-radius: 30px;
+}
+
+a:visited {
+  color : black;
+}
+a:hover {
+  color : red;
+}
+a:active {
+  color : green
+}

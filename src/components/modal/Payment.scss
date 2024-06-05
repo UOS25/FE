@@ -1,0 +1,148 @@
+#modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal-body {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .payment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+
+      .payment-overview {
+        text-align: left;
+
+        .payment-title {
+          font-size: 25px;
+          font-weight: bold;
+          margin: 0;
+        }
+
+        .amount {
+          
+          font-size: 18px;
+          color: #333;
+          margin: 0;
+          padding-left: 10px;
+          
+        }
+
+        .date {
+          font-size: 14px;
+          color: #666;
+          margin: 0;
+        }
+      }
+
+      .logo img {
+        width: 50px;
+      }
+    }
+
+    .payment-hr {
+      border: 0;
+      height: 1px;
+      background: #eee;
+    }
+
+    .payment-content {
+      margin-bottom: 20px;
+      .table-container {
+        max-height: 155px; /* Adjust this value based on your design */
+        overflow-y: auto;
+        margin-bottom: 20px;
+
+      .purchased-items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+          text-align: left;
+        }
+      
+        th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+      
+        tbody tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+      }
+    }
+      .mileage-check {
+        margin-top: 20px;
+
+        input {
+          width: calc(100% - 60px);
+          padding: 8px;
+          margin-right: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+
+        .mileage-check-btn {
+          padding: 8px 12px;
+          background: #007bff;
+          margin-top: 20px;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-right: 15px;
+
+          &:hover {
+            background: #0056b3;
+          }
+        }
+
+        .mileage-apply-btn {
+          padding: 8px 12px;
+          background: orange;
+          margin-top: 20px;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+
+          &:hover {
+            background: rgb(230, 158, 25);
+          }
+        }
+      }
+    }
+
+    .payment-footer {
+      text-align: right;
+
+      button {
+        padding: 10px 20px;
+        background: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background: #c82333;
+        }
+      }
+    }
+  }
+}

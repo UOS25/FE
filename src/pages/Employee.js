@@ -15,8 +15,8 @@ export default function Employee(){
         setActiveIndex(index);
     };
 
-    const handleRowClick = (rowData) => {
-        setSelectedRowData(rowData);
+    const handleRowClick = (employee) => {
+        setSelectedRowData(employee);
         tabClickHandler(1); // Detail 탭으로 전환
     };
 
@@ -34,7 +34,7 @@ export default function Employee(){
                 <li className={activeIndex===1 ? "is-active" : ""} onClick={()=>tabClickHandler(1)}> Detail </li>
             ),
             tabCont:(
-                <div> <EmployeeDetail rowData={selectedRowData} /> </div>
+                <div> <EmployeeDetail employee={selectedRowData} /> </div>
             )
         }
     ];

@@ -8,7 +8,7 @@ function Navbar() {
         <ul>
           <li><a href="/home">🏠 홈</a></li>
           <li><a href="/orders">🛒 주문 관리</a></li>
-          <li><a href="/product">🎁 상품 조회</a></li>
+          <li><a href="/product">🎁 상품 주문</a></li>
           <li><a href="/home">📦 재고 관리</a></li>
           <li><a href="/receipt">📄 영수증 조회</a></li>
           <li><a href="/">💸 수불 관리</a></li>
@@ -25,7 +25,8 @@ function Navbar() {
 
         </div>
         <div className="container-right">
-            <div className="indiv-info"><a href="/Login">Admin</a></div>
+            <div className="commute"><a href="/Login">출근부</a></div>
+            <div className="indiv-info"><a href="/Login">Login</a></div>
 
 
         </div>

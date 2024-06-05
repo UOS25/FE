@@ -2,13 +2,17 @@ import React, {useRef, useState, useEffect} from 'react';
 import axios from 'axios';
 import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
-import Payback from '../components/modal/Payback';
+import Payback from '../components/modal/Payback.js';
+import Payment from '../components/modal/Payment.js';
 
 export default function Home() {
 
     const barCodeRef = useRef(null);
+    const itemImgRef = useRef(null);
     const [items, setItems] = useState([]);
+    const [selectedItem, setSelectedItem] = useState([]);
     const [paybackModalOpen, setPaybackModalOpen] = useState(false);
+    const [PaymentModalOpen, setPaymentModalOpen] = useState(false);
     
     // 데이터 저장 함수
     const saveItemsToLocalStorage = (items) => {
@@ -36,15 +40,14 @@ export default function Home() {
         console.log('Barcode Value:', barcodeValue);
 
         axios
-          .get(`https://dummyjson.com/products/${barcodeValue}`, {
-            headers: {
-            //   Authorization: `Bearer ${accessToken}`,
-            },
-          })    
+          .get(`/product/barcode/${barcodeValue}`)  
           .then((response) => {
-            
+            console.log(response);
             setItems((prevItems) => {
-                const existingItemIndex = prevItems.findIndex((item) => item.productName === response.data.brand);
+                console.log(response.data.productId);
+                const existingItemIndex = prevItems.findIndex((item) => item.no === response.data.productId);
+                itemImgRef.current.src = response.data.thumbnail;
+                console.log(response.data)
                 if (existingItemIndex !== -1) {
                     // 기존 아이템이 있으면 수량을 증가시킴
                     const updatedItems = prevItems.map((item, index) => 
@@ -54,11 +57,12 @@ export default function Home() {
                 } else {
                     // 새로운 아이템을 추가함
                     const newItem = {
-                        no: response.data.id,
-                        productName: response.data.brand,
-                        price: response.data.price,
+                        no: response.data.productId,
+                        productName: response.data.productName,
+                        price: response.data.customerPrice,
                         ea: 1,
-                        description: response.data.description
+                        description: response.data.events[0],
+                        barcode: response.data.barcode
                     };
                     return [...prevItems, newItem];
                 }
@@ -70,6 +74,7 @@ export default function Home() {
 
     const handleResetClick = () => {
         setItems([]);
+        itemImgRef.current.src = "";
     }
     const headers = [
         {
@@ -95,19 +100,6 @@ export default function Home() {
       ];
     
     const headerKey = headers.map((header) => header.value);
-
-    // 바코드로 상품 정보 불러오기
-    const getItemInfo=() => {
-        axios.get("url")
-        .then(response => {
-            console.log(response.data); // 데이터 로그 출력
-        })
-    }
-
-    // 결제 창 띄우기
-    const openCashModal=() => {
-        //모달 창 띄우기
-    }
 
     const activeEnter=(e) => {
         if(e.key === "Enter"){
@@ -158,7 +150,7 @@ export default function Home() {
                     {/* 바코드 입력 & 품목 정보 */}
                     <div className='calculate-header'>선택한 품목</div>
                     <div className='wrapper-calculate-list'>
-
+                        <img ref={itemImgRef}></img>
                     </div>
                     <div className='wrapper-barcode'>
                         <div className='header-barcode'>바코드 입력</div>
@@ -169,11 +161,20 @@ export default function Home() {
                     <button className='register-button' onClick={handleRegisterClick}>상품 등록</button>
                     <button className='rollback-button' onClick={handleResetClick}>입력 초기화</button>
                     <button className='payback-button' onClick={() => setPaybackModalOpen(true)}>구매 포기</button>
-                    <button className='pay-button'>결제</button>
+                    <button className='pay-button' onClick={() => setPaymentModalOpen(true)}>결제</button>
                 </div>
             </div>
             { paybackModalOpen && 
-                <Payback/>
+                <Payback 
+                paybackModalOpen = {paybackModalOpen}
+                setPaybackModalOpen={setPaybackModalOpen} />
+            }
+            { PaymentModalOpen && 
+                <Payment 
+                setPaymentModalOpen={setPaymentModalOpen}
+                selectedItem = {items}
+                setSelectedItem={setSelectedItem}
+                setItems = {setItems} />
             }
         </div>
     )
