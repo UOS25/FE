@@ -43,15 +43,15 @@ export default function Payment({ setPaymentModalOpen, selectedItem, setSelected
         }
         else { // 결제 로직 추가
             const itemInfos = selectedItem.map(item => ({
-                ea: item.ea,
-                barcode: item.barcode
+                barcode: item.barcode,
+                ea: item.ea
             }));
             axios.post(`/purchase`, {
-                shopId: 1, // 로컬 스토리지에 저장된 shopId
                 employeeId: 1, // 로컬 스토리지에 저장된 employeeId
-                customerId: 1, // 추후에 휴대폰 번호로 입력
+                phoneNumber: "01012341234", // 추후에 휴대폰 번호로 입력
                 age: 20,
-                gender: "여성",
+                gender: "FEMALE",
+                mileage: 0,
                 itemInfos: itemInfos
             })
             .then(

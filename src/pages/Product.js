@@ -19,25 +19,11 @@ export default function Product(){
 
     useEffect(() => {
         console.log("렌더링되자마자 실행되는 useEffect");
-        setProducts([
-            {
-                "barcode": 1,
-                "productName": "츄러스",
-                "enterprise": "오리온",
-                "description": "설명",
-                "customerPrice": 10000,
-                "orderPrice": 5000,
-                "category": "과자",
-                "feature": "feature",
-                "expirationDate": "2024-06-04T11:11:11",
-                "events": "events"
-            }
-        ]);
         // 상품 전체 정보 불러오기
         axios.get('/product/list').then((response) => {
             console.log(response);
             // 상품 정보 리스트에 담기
-            setProducts(response.data);
+            // setProducts(response.data.data);
         }).catch((error) => {
             console.log(error);
         })

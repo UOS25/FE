@@ -38,16 +38,17 @@ export default function Home() {
     const handleRegisterClick = () => {
         const barcodeValue = barCodeRef.current.value;
         console.log('Barcode Value:', barcodeValue);
-
+    
         axios
-          .get(`/product/barcode/${barcodeValue}`)  
+          .get(`/product/${barcodeValue}`)  
           .then((response) => {
             console.log(response);
             setItems((prevItems) => {
                 console.log(response.data.productId);
-                const existingItemIndex = prevItems.findIndex((item) => item.no === response.data.productId);
+                const existingItemIndex = prevItems.findIndex((item) => item.productName === response.data.productName);
                 itemImgRef.current.src = response.data.thumbnail;
-                console.log(response.data)
+                console.log(response.data);
+    
                 if (existingItemIndex !== -1) {
                     // 기존 아이템이 있으면 수량을 증가시킴
                     const updatedItems = prevItems.map((item, index) => 
@@ -56,12 +57,13 @@ export default function Home() {
                     return updatedItems;
                 } else {
                     // 새로운 아이템을 추가함
+                    const maxNo = prevItems.length > 0 ? Math.max(...prevItems.map(item => item.no)) : 0;
                     const newItem = {
-                        no: response.data.productId,
+                        no: maxNo + 1,
                         productName: response.data.productName,
-                        price: response.data.customerPrice,
+                        price: response.data.orderPrice,
                         ea: 1,
-                        description: response.data.events[0],
+                        description: response.data.eventNames,
                         barcode: response.data.barcode
                     };
                     return [...prevItems, newItem];

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import './Payback.scss'
 import axios from 'axios';
 export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt }){
@@ -8,7 +8,13 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
     const receiptIdRef = useRef(null);
     // receipt.items
     const [selectedItems, setSelectedItems] = useState([]);
+    const [customerName, setCustomerName] = useState(null);
+    const [totalPrices, setTotalPrices] = useState([]);
 
+    const onClickReceiptDetail = (receipt) => {
+        console.log(receipt)
+        setItems(receipt);
+    }
     const handleItemCancel = (index) => {
         setSelectedItems(prevItems => 
             prevItems.map((item, i) => i === index ? { ...item, status: 'Cancelled' } : item)
@@ -19,32 +25,70 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
         setPaybackModalOpen(false);
     };
 
-    const getReceiptInfo = (receiptId) => {
-        axios.get(`/${receiptId}`, {
+    const addReceipt = (phoneNumber) => {
 
-        }).then((response) => {
-            const newReceiptInfo = {
-                id: response.data.id,
+        axios.get(`/receipt/phoneNumber/${phoneNumber}`)
+        .then((response) => {
+            setReceipts(response.data);
 
-            }
-            setItems([newReceiptInfo])
-        })
-    }
+            // CustomerName
+            axios.get(`/customer/${phoneNumber}`)
+            .then((response) => {
+                setCustomerName(response.data.nickname);
+            })
+            .catch((error) => {
+                alert("고객 정보 불러오기 실패: "+error);
+            });
+        });
 
-    const addReceipt = () => {
-        const receiptId = receiptIdRef.current.value;
-        // Fetch receipt data based on receiptId
-        // For this example, we'll use dummy data
-        const newReceipt = {
-            id: receipts.length + 1,
-            customerName: '홍길동',
-            purchaseDate: '2024-06-05',
-            totalAmount: '₩100,000',
-            purchaseStatus: '완료'
-        };
-        setReceipts([...receipts, newReceipt]);
         receiptIdRef.current.value = '';
     };
+
+    const fetchData = async (itemInfos) => {
+        let totalPrice = 0;
+    
+        // 각 아이템에 대해 추가 요청을 보냅니다.
+        for (const item of itemInfos) {
+            try {
+                // 각 상품의 정보를 가져옵니다.
+                const productResponse = await axios.get(`/product/${item.barcode}`);
+                const productData = productResponse.data;
+    
+                // 상품의 customerPrice를 이용하여 총 가격을 계산합니다.
+                const itemTotalPrice = productData.customerPrice * item.ea;
+                // 총 가격에 합산합니다.
+                totalPrice += itemTotalPrice;
+            } catch (error) {
+                console.error(`Error fetching product with barcode ${item.barcode}:`, error);
+            }
+        }
+    
+        // 모든 요청이 완료된 후에 총 가격을 반환합니다.
+        return totalPrice;
+    };
+
+    function formatDate(inputDate) {
+        const dateObject = new Date(inputDate);
+    
+        const year = dateObject.getFullYear().toString().substr(-2); // 연도에서 뒤의 두 자리만 가져옴
+        const month = (dateObject.getMonth() + 1).toString().padStart(2, "0"); // 월을 2자리로 표현하고, 필요하다면 앞에 0을 채움
+        const day = dateObject.getDate().toString().padStart(2, "0"); // 일을 2자리로 표현하고, 필요하다면 앞에 0을 채움
+    
+        return `${year}-${month}-${day}`; // 원하는 형식으로 날짜를 조합하여 반환
+    }
+
+
+    useEffect(() => {
+        const fetchDataAndSetTotalPrices = async () => {
+            const newTotalPrices = [];
+            for (const receipt of receipts) {
+                const totalPrice = await fetchData(receipt.itemInfos);
+                newTotalPrices.push(totalPrice);
+            }
+            setTotalPrices(newTotalPrices);
+        };
+        fetchDataAndSetTotalPrices();
+    }, [receipts]);
 
     const activeEnter=(e) => {
         if(e.key === "Enter"){
@@ -64,7 +108,7 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                     ref={receiptIdRef}
                     onKeyDown={activeEnter}
                 />
-                <button className="search-button" onClick={addReceipt}>검색</button>
+                <button className="search-button" onClick={() => addReceipt(receiptIdRef.current.value)}>검색</button>
                 <div className='receipt-list'>
                     <div className='receipt-header'>
                         <span>번호</span>
@@ -74,15 +118,19 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                         <span>구매 상태</span>
                     </div>
                     <div className='receipt-entries'>
-                        {receipts.map(receipt => (
-                            <div key={receipt.id} className='receipt-row'>
-                                <span>{receipt.id}</span>
-                                <span>{receipt.customerName}</span>
-                                <span>{receipt.purchaseDate}</span>
-                                <span>{receipt.totalAmount}</span>
-                                <span>{receipt.purchaseStatus}</span>
-                            </div>
-                        ))}
+                        {receipts.map((receipt, index) => {
+                            return (
+                                <div key={receipt.id}>
+                                    <div className='receipt-row' onClick={() => onClickReceiptDetail(receipt)}>
+                                        <span>{receipt.receiptId}</span>
+                                        <span>{customerName}</span>
+                                        <span>{formatDate(receipt.purchaseDate)}</span>
+                                        <span>{totalPrices[index]}</span>
+                                        <span>{receipt.purchaseStatus}</span>
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className="modal-buttons">
@@ -122,6 +170,7 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                             </thead>
                             <tbody>
                                 {selectedItems.map((item, index) => (
+
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.productName}</td>
