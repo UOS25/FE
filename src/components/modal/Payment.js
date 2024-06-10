@@ -9,6 +9,7 @@ export default function Payment({ setPaymentModalOpen, selectedItem, setSelected
     const [phoneNumber, setPhoneNumber] = useState('');
     const [mileage, setMileage] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
+    const [customerSignUp, setCustomerSignUp] = useState(false);
 
     useEffect(() => {
         console.log(selectedItem);
@@ -20,9 +21,18 @@ export default function Payment({ setPaymentModalOpen, selectedItem, setSelected
         setTotalAmount(amount);
     }, [selectedItem]);
 
-    const handleMileageCheck = () => {
+    const handleMileageCheck = (phoneNumber) => {
         // 마일리지 조회 로직
-        setMileage(1234); // 예시로 임의 값 설정
+        axios.get(`/customer/${phoneNumber}`)
+        .then((response) => {
+            setMileage(response.data.mileage);
+        })
+        .catch((response) => {
+            // 회원가입 하시겠습니까?
+            alert("고객 정보가 존재하지 않습니다.");
+            // 만약 회원가입 해야되면 
+            setCustomerSignUp(true);
+        })
     };
 
     const handleMileageApply = () => {
@@ -107,6 +117,16 @@ export default function Payment({ setPaymentModalOpen, selectedItem, setSelected
             </div>
         )
     }
+    else if(customerSignUp){
+        return (
+            <div id="modal-container" ref={paymentModalBackground}>
+                <div className='modal-body'>
+                    회원가입
+                </div>
+                
+            </div>
+        )
+    }
     return (
         <div id="modal-container" ref={paymentModalBackground} className="modal-container">
             <div className='modal-body'>
@@ -152,7 +172,7 @@ export default function Payment({ setPaymentModalOpen, selectedItem, setSelected
                             value={phoneNumber}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
-                        <button className="mileage-check-btn" onClick={handleMileageCheck}>조회</button>
+                        <button className="mileage-check-btn" onClick={() => handleMileageCheck(phoneNumber)}>조회</button>
                         <button className="mileage-apply-btn" onClick={handleMileageApply}>적용</button>
                         {mileage !== null && <p>Mileage Points: {mileage}</p>}
                     </div>

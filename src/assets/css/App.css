@@ -242,6 +242,17 @@ td{
   cursor: pointer;
 }
 
+.customer-button{
+  margin-top: 10px;
+  background-color: #2d75a5;
+  border: #F5F5F5 solid;
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .payback-button{
   margin-top: 10px;
   text-align: center;
@@ -297,11 +308,18 @@ button:active{
 
 .commute {
   text-decoration: none;
-  background-color: #2CD5C4;
+  cursor: pointer;
+  color: black;
+  /* background-color: #2CD5C4; */
   font-weight: bold;
   font-size: 18px;
-  padding: 12px 20px;
-  border-radius: 30px;
+  padding: 12px 15px;
+  border-radius: 25px;
+}
+
+.commute:hover {
+  background-color: #2CD5C4;
+  color: #fff;
 }
 
 a:visited {
@@ -312,4 +330,20 @@ a:hover {
 }
 a:active {
   color : green
+}
+
+.HQ-info {
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+  /* background-color: #2CD5C4; */
+  font-weight: bold;
+  font-size: 18px;
+  padding: 12px 15px;
+  border-radius: 25px;
+}
+
+.HQ-info:hover {
+  background-color: #2CD5C4;
+  color: #fff;
 }

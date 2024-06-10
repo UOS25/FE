@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Recruitment from "../components/modal/Recruitment";
+
 const EmployeeOverview = ({ onRowClick }) => {
     const [users, setUsers] = useState([]);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(() => {
-      axios.get(`/employee`)
+      axios.get(`/employee/search-shop/1`)
       .then((response) => {
         console.log(response);
         setUsers(response.data);
@@ -13,11 +15,15 @@ const EmployeeOverview = ({ onRowClick }) => {
         alert(error);
       })         
       }, []);
+
+    const handleRecruitBtnClick = () => {
+      setIsModalOpen(true);
+    };
     return (
         <div>
           <div className="employee-header">
-            <h1>직원 정보</h1>
-            <button className="employee-recruit-btn">New</button>
+            <h1>👨‍🏭 직원 정보</h1>
+            <button className="employee-recruit-btn" onClick={handleRecruitBtnClick}>New</button>
           </div>
       <table>
         <thead>
@@ -29,9 +35,9 @@ const EmployeeOverview = ({ onRowClick }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {users.map((user, index) => (
             <tr key={user.id} className="table-row" onClick={() => onRowClick(user) }>
-              <td>{user.employeeId}</td>
+              <td>{index + 1  }</td>
               <td>{user.employeeName}</td>
               <td>{user.position}</td>
               <td>{user.partTime}</td>
@@ -39,6 +45,7 @@ const EmployeeOverview = ({ onRowClick }) => {
           ))}
         </tbody>
       </table>
+      {isModalOpen && <Recruitment setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}/>}
     </div>
     )
 }

@@ -8,10 +8,9 @@ export default function Login(){
         <div className="wrapper_login">
           <form action="#" className="login_form">
             <h1>Hello, UOS25</h1>
-            <span>or use your account</span>
+            <span>지점 코드를 입력하세요</span>
             <input type="text" placeholder="Id" />
             <input type="password" placeholder="Password" />
-            <a href="/find_password">Forgot your password?</a>
             <button>Sign In</button>
           </form>
         </div>

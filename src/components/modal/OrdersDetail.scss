@@ -22,8 +22,8 @@
         position: relative;
 
         .close {
-            color: #666;
-            font-size: 24px;
+            color: black;
+            font-size: 28px;
             position: absolute;
             top: 10px;
             right: 10px;
@@ -32,6 +32,7 @@
             &:hover,
             &:focus {
                 color: #333;
+                text-decoration: none;
             }
         }
 
@@ -54,7 +55,7 @@
             }
         }
 
-        .quantity-check-btn, .close-btn {
+        .quantity-check-btn, .order-cancel-btn {
             padding: 10px 20px;
             font-size: 16px;
             border: none;
@@ -78,7 +79,7 @@
             }
         }
 
-        .close-btn {
+        .order-cancel-btn {
             background-color: #f44336;
             color: #fff;
 

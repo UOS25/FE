@@ -81,3 +81,24 @@ hr {
 .detail-button:hover {
   background-color: #ddd;
 }
+
+.container-header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.productSelected {
+  color: black;
+}
+
+.serviceSelected {
+  color: black;
+}
+.unselected-title {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.unselected-title::before, ::after{
+  content: 🛍️;
+}

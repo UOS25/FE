@@ -5,7 +5,7 @@ import "./OrderProduct.scss";
 export default function Payback({ OrderModalOpen, setOrderModalOpen, selectedRowData }){
     const OrderModalBackground = useRef();
     const [item, setItem] = useState(1);
-    
+    console.log(selectedRowData);
     const addProduct = () => {
         setItem(item + 1);
     };
@@ -16,13 +16,18 @@ export default function Payback({ OrderModalOpen, setOrderModalOpen, selectedRow
     
     const orderRequest = () => {
         axios.post(`/orders`, {
-            productId: selectedRowData.productId,
             shopId: 1, //
+            barcode: selectedRowData.barcode,
             productName: selectedRowData.productName,
             ea: item,
             totalPrice: item * selectedRowData.orderPrice
         }).then((response) => {
             console.log(response);
+            alert("주문이 완료되었습니다.");
+            setOrderModalOpen(false);
+        }).catch((error) => {
+            alert("주문에 실패하였습니다.");
+            setOrderModalOpen(false);
         })
     }
 

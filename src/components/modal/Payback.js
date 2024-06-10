@@ -10,15 +10,29 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
     const [selectedItems, setSelectedItems] = useState([]);
     const [customerName, setCustomerName] = useState(null);
     const [totalPrices, setTotalPrices] = useState([]);
+    const [amount, setAmount] = useState(null);
+    const [date, setDate] = useState(null);
+    const [receiptId, setReceiptId] = useState(null);
 
-    const onClickReceiptDetail = (receipt) => {
-        console.log(receipt)
-        setItems(receipt);
+    const onClickReceiptDetail = (receipt, amount) => {
+        console.log(receipt);
+        console.log(receipt.itemInfos);
+        setReceiptId(receipt.receiptId);
+        setDate(formatDate(receipt.purchaseDate));
+        setItems(receipt.itemInfos);
+        setAmount(amount);
     }
-    const handleItemCancel = (index) => {
-        setSelectedItems(prevItems => 
-            prevItems.map((item, i) => i === index ? { ...item, status: 'Cancelled' } : item)
-        );
+    const handleReceiptCancel = (receiptId) => {
+        console.log(receiptId);
+        axios.post(`/purchase/${receiptId}/cancel`)
+        .then((response) => {
+            alert("처리되었습니다.");
+            setItems([]);
+            window.location.reload();
+        })
+        .catch((error) => {
+            alert(error);
+        })
     };
 
     const onClickModalClose = () => {
@@ -30,6 +44,7 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
         axios.get(`/receipt/phoneNumber/${phoneNumber}`)
         .then((response) => {
             setReceipts(response.data);
+            console.log(response);
 
             // CustomerName
             axios.get(`/customer/${phoneNumber}`)
@@ -121,7 +136,7 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                         {receipts.map((receipt, index) => {
                             return (
                                 <div key={receipt.id}>
-                                    <div className='receipt-row' onClick={() => onClickReceiptDetail(receipt)}>
+                                    <div className='receipt-row' onClick={() => onClickReceiptDetail(receipt, totalPrices[index])}>
                                         <span>{receipt.receiptId}</span>
                                         <span>{customerName}</span>
                                         <span>{formatDate(receipt.purchaseDate)}</span>
@@ -146,8 +161,8 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                 <div className='receipt-header'>
                     <div className='receipt-overview'>
                         <p className='receipt-title'>Receipt from (UOS25)</p>
-                        <p className='amount'>50000원</p>
-                        <p className='date'>Paid 2002.02.02</p>
+                        <p className='amount'>{amount}원</p>
+                        <p className='date'>Paid {date}</p>
                     </div>
                     <div className='logo'>
                         <img src='./image/logo.jpg' alt='Logo'/>
@@ -162,37 +177,34 @@ export default function Payback({ paybackModalOpen, setPaybackModalOpen, receipt
                                 <tr>
                                     <th>순번</th>
                                     <th>아이템 이름</th>
+                                    <th>단가</th>
                                     <th>개수</th>
                                     <th>금액</th>
-                                    <th>구매 상태</th>
-                                    <th>취소</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {selectedItems.map((item, index) => (
+                                {items.map((item, index) => {
+                                console.log(item);
+                                return(
 
                                     <tr key={index}>
                                         <td>{index + 1}</td>
                                         <td>{item.productName}</td>
+                                        <td>{item.price.toLocaleString()}원</td>
                                         <td>{item.ea}</td>
                                         <td>{(item.price * item.ea).toLocaleString()}원</td>
-                                        <td>{item.status}</td>
-                                        <td>
-                                            <button 
-                                                onClick={() => handleItemCancel(index)}
-                                                disabled={item.status === 'Cancelled'}
-                                            >
-                                                구매 포기
-                                            </button>
-                                        </td>
                                     </tr>
-                                ))}
+                                );
+                            })}
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div className='receipt-footer'>
-                    <button style={{ marginRight: '20px' }} onClick={onClickModalClose}>
+                    <button onClick={() => handleReceiptCancel(receiptId)}>
+                        구매 취소
+                    </button>
+                    <button onClick={onClickModalClose}>
                         닫기
                     </button>
                 </div>

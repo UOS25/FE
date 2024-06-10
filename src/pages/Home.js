@@ -4,6 +4,7 @@ import Navbar from '../components/common/Navbar';
 import '../assets/css/App.css';
 import Payback from '../components/modal/Payback.js';
 import Payment from '../components/modal/Payment.js';
+import Customer from '../components/modal/CustomerRegistrationModal.js'
 
 export default function Home() {
 
@@ -13,7 +14,7 @@ export default function Home() {
     const [selectedItem, setSelectedItem] = useState([]);
     const [paybackModalOpen, setPaybackModalOpen] = useState(false);
     const [PaymentModalOpen, setPaymentModalOpen] = useState(false);
-    
+    const [customerModalOpen, setCustomerModalOpen] = useState(false);
     // 데이터 저장 함수
     const saveItemsToLocalStorage = (items) => {
         localStorage.setItem('items', JSON.stringify(items));
@@ -71,7 +72,10 @@ export default function Home() {
             });
             // 입력 필드 값 초기화
             barCodeRef.current.value = '';
-          });
+          }).catch((error) => {
+            alert("바코드 정보가 잘못되었습니다.");
+            barCodeRef.current.value = '';
+          })
     };
 
     const handleResetClick = () => {
@@ -162,7 +166,8 @@ export default function Home() {
                     </div>
                     <button className='register-button' onClick={handleRegisterClick}>상품 등록</button>
                     <button className='rollback-button' onClick={handleResetClick}>입력 초기화</button>
-                    <button className='payback-button' onClick={() => setPaybackModalOpen(true)}>구매 포기</button>
+                    <button className='payback-button' onClick={() => setPaybackModalOpen(true)}>영수증 조회</button>
+                    <button className='customer-button' onClick={() => setCustomerModalOpen(true)}>고객 등록</button>
                     <button className='pay-button' onClick={() => setPaymentModalOpen(true)}>결제</button>
                 </div>
             </div>
@@ -177,6 +182,12 @@ export default function Home() {
                 selectedItem = {items}
                 setSelectedItem={setSelectedItem}
                 setItems = {setItems} />
+            }
+            { customerModalOpen && 
+                <Customer
+                customerModalOpen={customerModalOpen}
+                setCustomerModalOpen={setCustomerModalOpen}
+                />
             }
         </div>
     )

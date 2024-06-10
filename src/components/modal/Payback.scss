@@ -16,7 +16,7 @@
       width: 90%;
       max-width: 600px;
       padding: 20px;
-      overflow-y: auto;
+    //   overflow-y: auto;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       animation: fadeIn 0.3s ease-in-out;
 
@@ -62,6 +62,7 @@
               display: grid;
               grid-template-columns: repeat(5, 1fr);
               padding: 10px 0;
+              cursor: pointer;
 
               span {
                   text-align: center;
@@ -199,7 +200,7 @@
 
       .receipt-footer {
           text-align: right;
-
+        margin-top: 20px;
           button {
               padding: 10px 20px;
               background-color: #007bff;
