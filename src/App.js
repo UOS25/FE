@@ -10,7 +10,9 @@ import Employee from './pages/Employee';
 import Receipt from './pages/Receipt';
 import Product from './pages/Product';
 import ProductDetail from './pages/ProductDetail';
-
+import Inventory from './pages/Inventory';
+import Returns from './pages/Returns';
+import Disburse from './pages/Disburse';
 export default function App(){
   return (
       <Router>
@@ -43,6 +45,15 @@ export default function App(){
         </Routes>
         <Routes>
           <Route path='/product/detail' element={<ProductDetail/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/inventory' element={<Inventory/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/returns' element={<Returns/>}/>
+        </Routes>
+        <Routes>
+          <Route path='/disburse' element={<Disburse/>}/>
         </Routes>
       </Router>
   );

@@ -1,0 +1,231 @@
+#modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  .modal-body {
+      background-color: #fff;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+    //   overflow-y: auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.3s ease-in-out;
+
+      .receipt-title {
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 24px;
+          color: #333;
+      }
+
+      .receiptId-input {
+          width: calc(100% - 40px);
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          font-size: 16px;
+      }
+
+      .search-button {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          background-color: #007bff;
+          border: none;
+          border-radius: 4px;
+          color: #fff;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+              background-color: #0056b3;
+          }
+      }
+
+      .receipt-list {
+          max-height: 300px;
+          overflow-y: auto;
+          margin-bottom: 20px;
+
+          .receipt-header, .receipt-row {
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              padding: 10px 0;
+              cursor: pointer;
+
+              span {
+                  text-align: center;
+              }
+          }
+
+          .receipt-header {
+              border-bottom: 2px solid #ddd;
+              font-weight: bold;
+              background-color: #f9f9f9;
+          }
+
+          .receipt-row {
+              border-bottom: 1px solid #ddd;
+
+              &:nth-child(even) {
+                  background-color: #f1f1f1;
+              }
+
+              &:hover {
+                  background-color: #f7f7f7;
+              }
+          }
+      }
+
+      .modal-buttons {
+          text-align: right;
+
+          .close-button {
+              padding: 10px 20px;
+              background-color: #dc3545;
+              border: none;
+              border-radius: 4px;
+              color: #fff;
+              font-size: 16px;
+              cursor: pointer;
+              transition: background-color 0.3s;
+
+              &:hover {
+                  background-color: #c82333;
+              }
+          }
+      }
+
+      .receipt-overview {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .receipt-title {
+              font-size: 20px;
+              color: #333;
+          }
+
+          .amount {
+              font-size: 18px;
+              font-weight: bold;
+              color: #333;
+          }
+
+          .date {
+              font-size: 16px;
+              color: #666;
+          }
+      }
+
+      .logo {
+          img {
+              width: 50px;
+              height: 50px;
+          }
+      }
+
+      .receipt-hr {
+          margin: 20px 0;
+          border: none;
+          border-top: 1px solid #ddd;
+      }
+
+      .receipt-content {
+          h3 {
+              font-size: 18px;
+              color: #333;
+              margin-bottom: 10px;
+          }
+
+          .table-container {
+              overflow-x: auto;
+
+              .purchased-items-table {
+                  width: 100%;
+                  border-collapse: collapse;
+
+                  th, td {
+                      padding: 10px;
+                      text-align: center;
+                      border: 1px solid #ddd;
+                  }
+
+                  th {
+                      background-color: #f9f9f9;
+                      font-weight: bold;
+                  }
+
+                  tbody tr:nth-child(even) {
+                      background-color: #f1f1f1;
+                  }
+
+                  tbody tr:hover {
+                      background-color: #f7f7f7;
+                  }
+
+                  button {
+                      padding: 5px 10px;
+                      border: none;
+                      border-radius: 4px;
+                      background-color: #dc3545;
+                      color: #fff;
+                      font-size: 14px;
+                      cursor: pointer;
+                      transition: background-color 0.3s;
+
+                      &:hover {
+                          background-color: #c82333;
+                      }
+
+                      &:disabled {
+                          background-color: #6c757d;
+                          cursor: not-allowed;
+                      }
+                  }
+              }
+          }
+      }
+
+      .receipt-footer {
+          text-align: right;
+        margin-top: 20px;
+          button {
+              padding: 10px 20px;
+              background-color: #007bff;
+              border: none;
+              border-radius: 4px;
+              color: #fff;
+              font-size: 16px;
+              cursor: pointer;
+              transition: background-color 0.3s;
+
+              &:hover {
+                  background-color: #0056b3;
+              }
+          }
+      }
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+          transform: scale(0.9);
+      }
+      to {
+          opacity: 1;
+          transform: scale(1);
+      }
+  }
+}

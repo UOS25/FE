@@ -68,3 +68,37 @@ hr {
 .order-table{
   overflow-y: auto;
 }
+
+.detail-button {
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 5px 10px;
+}
+
+.detail-button:hover {
+  background-color: #ddd;
+}
+
+.container-header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.productSelected {
+  color: black;
+}
+
+.serviceSelected {
+  color: black;
+}
+.unselected-title {
+  color: #ddd;
+  cursor: pointer;
+}
+
+.unselected-title::before, ::after{
+  content: 🛍️;
+}

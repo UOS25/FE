@@ -1,20 +1,22 @@
-import React from 'react';
-import "../assets/css/main.css";
-import MainNavbar from '../components/common/MainNavbar';
+import React, {useRef} from 'react';
+import MainNavbar from './MainNavbar';
+import './Main.scss'; // SCSS 파일을 추가하여 스타일을 적용합니다.
+import Video from "../assets/css/video.mp4"
 
-export default function Main() {
+export default function MainPage() {
+    const shopId = localStorage.getItem("shopId");
+    
+    const handleStartClick = () => {
+        localStorage.setItem("shopId", 1);
+        window.location.href="/home"
+    }
     return (
-        <div className='container_main'>
-            <MainNavbar/>
-            <section className='event_banner'>
-                <div className='inner_wrap'>
-                    <div className='event_image'>
-                        <a href='/'> {/* DB에서 이벤트 ID 가져오기 */}
-                            <img src='image/event_banner_ex.png' alt='DB에서 이벤트 이미지 가져오기'></img>
-                        </a>
-                    </div>
+        <div className="main-page">
+            <div className='ad-container'>
+                <div className='ad-content'>
+                    <button onClick={() => {handleStartClick()}}>시작하기</button>
                 </div>
-            </section>
+            </div>
         </div>
-    )
+    );
 }

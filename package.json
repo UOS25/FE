@@ -2,6 +2,7 @@
   "name": "uos25",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@nivo/bar": "^0.87.0",
     "@nivo/core": "^0.87.0",
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.77.4"
   }
 }
